@@ -11,6 +11,8 @@ public class BoatMovement : MonoBehaviour
     float horizontalInput;
     float verticalInput;
 
+    [SerializeField] float fixRotSpeed;
+
     void Update()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -22,7 +24,7 @@ public class BoatMovement : MonoBehaviour
         }
 
         TurnBoat();
-        LimitAngles();
+      //  LimitAngles();
     }
 
     void MoveBoat()
@@ -35,24 +37,30 @@ public class BoatMovement : MonoBehaviour
         rb.AddTorque(transform.up * horizontalInput * turnSpeed * Time.deltaTime, ForceMode.VelocityChange);
     }
 
-    void LimitAngles()
-    {
-        Vector3 currentRotation = transform.rotation.eulerAngles;
+    //void LimitAngles()
+    //{
+    //    Vector3 currentRotation = transform.rotation.eulerAngles;
 
-        if (currentRotation.x > 180)
-        {
-            currentRotation.x -= 360;
-        }
+    //    if (currentRotation.x > 180)
+    //    {
+    //        currentRotation.x -= 360;
+    //    }
 
-        if (currentRotation.z > 180)
-        {
-            currentRotation.z -= 360;
-        }
+    //    if (currentRotation.z > 180)
+    //    {
+    //        currentRotation.z -= 360;
+    //    }
 
-        currentRotation.x = Mathf.Clamp(currentRotation.x, -15f, 15f);
-        currentRotation.z = Mathf.Clamp(currentRotation.z, -15f, 15f);
+    //    if (currentRotation.z < -15 || currentRotation.z > 15) 
+    //    {
+    //        Quaternion temp = Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0);
+    //        transform.rotation = Quaternion.Lerp(transform.rotation, temp, fixRotSpeed * Time.deltaTime);
+    //    }
 
-        Quaternion targetRotation = Quaternion.Euler(currentRotation);
-        rb.MoveRotation(Quaternion.RotateTowards(transform.rotation, targetRotation, 100f * Time.deltaTime));
-    }
+    //    if (currentRotation.x < -15 || currentRotation.x > 15)
+    //    {
+    //        Quaternion temp = Quaternion.Euler(0, transform.rotation.y, transform.rotation.z);
+    //        transform.rotation = Quaternion.Lerp(transform.rotation, temp, fixRotSpeed * Time.deltaTime);
+    //    }
+    //}
 }

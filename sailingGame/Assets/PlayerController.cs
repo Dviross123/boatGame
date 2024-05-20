@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         rb = gameObject.GetComponent<Rigidbody>();
     }
 
@@ -73,6 +75,5 @@ public class PlayerController : MonoBehaviour
 
         else 
             rb.drag = airDrag;
-
     }
 }

@@ -29,7 +29,7 @@ public class BoatMovement : MonoBehaviour
 
     void MoveBoat()
     {
-        rb.AddForce(transform.forward * verticalInput * speed * Time.deltaTime, ForceMode.Acceleration);
+        rb.AddForce(-transform.forward * verticalInput * speed * Time.deltaTime, ForceMode.Acceleration);
     }
 
     void TurnBoat()

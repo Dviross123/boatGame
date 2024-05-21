@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     [Header("movement")]
     [SerializeField] private float playerSpeed;
     private float horizontalInput;
-    private float verticallInput;
+    private float verticalInput;
     private Vector3 moveDirection;
 
     [Header("jump")]
@@ -15,13 +15,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundDrag;
     [SerializeField] private float airDrag;
 
-
     [Header("ground Check")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundMask;
 
     private bool isGrounded;
-
 
     [Header("refrences")]
     [SerializeField] Transform orientation;
@@ -37,7 +35,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //check move Input
-        myInput();
+        MyInput();
 
         //check if player grounded
         if (Physics.CheckSphere(groundCheck.position, 0.2f, groundMask)) isGrounded = true;
@@ -47,33 +45,45 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded) rb.AddForce(orientation.up * jumpForce, ForceMode.Impulse);
 
         //change the player drag
-        ControllDrag(); 
+        ControlDrag();
     }
 
     private void FixedUpdate()
     {
         //move
-        if(isGrounded)
-            rb.AddForce(moveDirection.normalized * playerSpeed , ForceMode.Acceleration);
-
+        if (isGrounded)
+            MoveOnSlope();
         else
-            rb.AddForce(moveDirection.normalized * playerSpeed *(airDrag/(groundDrag*1.6f)), ForceMode.Acceleration);
+            rb.AddForce(moveDirection.normalized * playerSpeed * (airDrag / (groundDrag * 1.6f)), ForceMode.Acceleration);
     }
 
-    private void myInput()
+    private void MyInput()
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticallInput = Input.GetAxisRaw("Vertical");
+        verticalInput = Input.GetAxisRaw("Vertical");
 
-        moveDirection = orientation.forward * verticallInput + orientation.right * horizontalInput;
+        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
     }
 
-    private void ControllDrag()
+    private void ControlDrag()
     {
         if (isGrounded)
             rb.drag = groundDrag;
-
-        else 
+        else
             rb.drag = airDrag;
+    }
+
+    private void MoveOnSlope()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(groundCheck.position, Vector3.down, out hit, 0.3f, groundMask))
+        {
+            Vector3 slopeMoveDirection = Vector3.ProjectOnPlane(moveDirection, hit.normal).normalized;
+            rb.AddForce(slopeMoveDirection * playerSpeed, ForceMode.Acceleration);
+        }
+        else
+        {
+            rb.AddForce(moveDirection.normalized * playerSpeed, ForceMode.Acceleration);
+        }
     }
 }

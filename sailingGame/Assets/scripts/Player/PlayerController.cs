@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private bool isMove;
 
+    [SerializeField] endAnimation endAnimation;
+
     [Header("movement")]
     [SerializeField] private float playerSpeed;
     private float horizontalInput;
@@ -36,6 +38,7 @@ public class PlayerController : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         rb = gameObject.GetComponent<Rigidbody>();
+
     }
 
     void Update()
@@ -48,7 +51,11 @@ public class PlayerController : MonoBehaviour
         else isGrounded = false;
 
         //jump
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded) rb.AddForce(orientation.up * jumpForce, ForceMode.Impulse);
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        {
+            rb.AddForce(orientation.up * jumpForce, ForceMode.Impulse);
+            animator.SetBool("isJump", true);
+        }
 
         //change the player drag
         ControlDrag();
@@ -70,6 +77,17 @@ public class PlayerController : MonoBehaviour
             MoveOnSlope();
         else
             rb.AddForce(moveDirection.normalized * playerSpeed * (airDrag / (groundDrag * 1.6f)), ForceMode.Acceleration);
+    }
+
+    public void stopAnimationCoroutine(float animationTime, string name)
+    {
+        StartCoroutine(stopAnimation(animationTime, name));
+    }
+
+    private IEnumerator stopAnimation(float animationTime, string name)
+    {
+        yield return new WaitForSeconds(animationTime);
+        animator.SetBool(name, false);
     }
 
     private void MyInput()

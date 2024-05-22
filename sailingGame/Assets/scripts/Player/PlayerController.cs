@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private Animator animator;
+    private bool isMove;
+
     [Header("movement")]
     [SerializeField] private float playerSpeed;
     private float horizontalInput;
@@ -27,6 +30,9 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        animator = GetComponentInChildren<Animator>();
+        isMove = false;
+
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         rb = gameObject.GetComponent<Rigidbody>();
@@ -46,6 +52,15 @@ public class PlayerController : MonoBehaviour
 
         //change the player drag
         ControlDrag();
+
+        if(isMove)
+        {
+            animator.SetBool("isMove", true);
+        }
+        else
+        {
+            animator.SetBool("isMove", false);
+        }
     }
 
     private void FixedUpdate()
@@ -61,6 +76,11 @@ public class PlayerController : MonoBehaviour
     {
         horizontalInput = Input.GetAxisRaw("Horizontal");
         verticalInput = Input.GetAxisRaw("Vertical");
+
+        if(horizontalInput == 0 && verticalInput == 0)
+            isMove = false;
+        else
+            isMove = true;
 
         moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
     }

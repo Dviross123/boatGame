@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2259.719, g: 2400.6213, b: 3497.1997, a: 1}
+  m_IndirectSpecularColor: {r: 2258.3733, g: 2399.6135, b: 3496.2231, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1961,7 +1961,7 @@ MonoBehaviour:
   player: {fileID: 6159660366766210568}
   playerObj: {fileID: 3930804733754164238}
   rb: {fileID: 2791684390216969232}
-  rotationSpeed: 44.23
+  rotationSpeed: 10
 --- !u!1 &1922249292 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3463249720569477132, guid: 4bf578ff0bfb65b46a8c6293e4fc1548,
@@ -2851,7 +2851,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4266157508229014783}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0120305605, y: 0.000000029800173, z: -3.5853873e-10, w: 0.99992764}
+  m_LocalRotation: {x: 0.012030557, y: 0.00000003331761, z: -4.008584e-10, w: 0.99992764}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2873,7 +2873,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8039111611259913900}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.024714867, y: -6.1096834e-15, z: -1.5104614e-16, w: 0.9996945}
+  m_LocalRotation: {x: -0.02471443, y: -7.7714706e-16, z: -1.9212613e-17, w: 0.9996946}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3023,6 +3023,11 @@ PrefabInstance:
       propertyPath: m_Drag
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 5111526582189513103, guid: deb78a00039b1104c95c8d016abaf3a6,
+        type: 3}
+      propertyPath: playerSpeed
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 6159660366120287939, guid: deb78a00039b1104c95c8d016abaf3a6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3157,7 +3162,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3340482823205603976}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.024714863, y: -0.0000000018620764, z: -4.6035026e-11, w: 0.9996945}
+  m_LocalRotation: {x: -0.02471443, y: -7.7714706e-16, z: -1.9212616e-17, w: 0.9996945}
   m_LocalPosition: {x: 146, y: 7.195, z: 80.95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3174,6 +3179,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3149150397002276991}
   - component: {fileID: 8828043663653678653}
+  - component: {fileID: 8828043663653678654}
   m_Layer: 0
   m_Name: FreeLook Camera
   m_TagString: Untagged
@@ -3721,6 +3727,36 @@ MonoBehaviour:
   - {fileID: 4553546478376356856}
   - {fileID: 765392203561328870}
   - {fileID: 2626863891177912918}
+--- !u!114 &8828043663653678654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6670774354543248832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e501d18bb52cf8c40b1853ca4904654f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CollideAgainst:
+    serializedVersion: 2
+    m_Bits: 72
+  m_IgnoreTag: Player
+  m_TransparentLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_MinimumDistanceFromTarget: 0.1
+  m_AvoidObstacles: 1
+  m_DistanceLimit: 0
+  m_MinimumOcclusionTime: 0
+  m_CameraRadius: 0.1
+  m_Strategy: 0
+  m_MaximumEffort: 4
+  m_SmoothingTime: 0
+  m_Damping: 0
+  m_DampingWhenOccluded: 0
+  m_OptimalTargetDistance: 0
 --- !u!4 &8884517163539569041
 Transform:
   m_ObjectHideFlags: 3
@@ -3729,7 +3765,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1778604741247044288}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.004916268, y: 3.203317e-16, z: 1.5748554e-18, w: 0.9999879}
+  m_LocalRotation: {x: -0.0049156263, y: -0.000000023120547, z: -1.1365332e-10, w: 0.99998796}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

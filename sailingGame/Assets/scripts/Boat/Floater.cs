@@ -16,28 +16,23 @@ public class Floater : MonoBehaviour
     WaterSearchParameters Search;
     WaterSearchResult SearchResult;
 
-    [SerializeField] Transform[] points; 
-
     private void FixedUpdate()
     {
 
         rb.AddForceAtPosition(Physics.gravity / floaters, transform.position, ForceMode.Acceleration);
 
-        foreach (Transform point in points)
-        {
-            Search.startPositionWS = point.position;
+            Search.startPositionWS = transform.position;
 
             water.ProjectPointOnWaterSurface(Search, out SearchResult);
 
-            if (point.position.y < SearchResult.projectedPositionWS.y)
+            if (transform.position.y < SearchResult.projectedPositionWS.y)
             {
-                float displacementMulti = Mathf.Clamp01(SearchResult.projectedPositionWS.y - point.position.y / depthBefSub) * displacementAmt;
+                float displacementMulti = Mathf.Clamp01(SearchResult.projectedPositionWS.y - transform.position.y / depthBefSub) * displacementAmt;
                 
-                rb.AddForceAtPosition(new Vector3(0f, Mathf.Abs(Physics.gravity.y) * displacementMulti, 0f), point.position, ForceMode.Acceleration);
+                rb.AddForceAtPosition(new Vector3(0f, Mathf.Abs(Physics.gravity.y) * displacementMulti, 0f), transform.position, ForceMode.Acceleration);
               
                 rb.AddForce(displacementMulti * -rb.velocity * waterDrag * Time.fixedDeltaTime, ForceMode.VelocityChange);
                 rb.AddTorque(displacementMulti * -rb.angularVelocity * waterAngularDrag * Time.fixedDeltaTime, ForceMode.VelocityChange);
             }
-        }
     }
 }

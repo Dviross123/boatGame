@@ -14,23 +14,25 @@ public class BoatManager : MonoBehaviour
 
     public void EnterBoat()
     {
-        onBoat = true;
         boatPlayerObj.SetActive(true);
         boatMovement.enabled = true;
         flc.Follow = boatPlayerObj.transform;
         flc.LookAt = boatPlayerObj.transform;
         realPlayer.SetActive(false);
+        onBoat = true;
+        print("enter boat");
     }
 
     public void ExitBoat()
     {
-        realPlayer.transform.position = transform.position;
         onBoat = false;
+        realPlayer.transform.position = transform.position;
         realPlayer.SetActive(true);
         flc.Follow = realPlayer.transform;
         flc.LookAt = realPlayer.transform;
         boatPlayerObj.SetActive(false);
         boatMovement.enabled = false;
+        print("exit boat");
     }
 
     private void Update()

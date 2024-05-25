@@ -24,11 +24,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundMask;
 
-    private bool isGrounded;
-
     [Header("refrences")]
     [SerializeField] Transform orientation;
     private Rigidbody rb;
+    [SerializeField] playerManager pm; 
 
     void Start()
     {
@@ -47,11 +46,10 @@ public class PlayerController : MonoBehaviour
         MyInput();
 
         //check if player grounded
-        if (Physics.CheckSphere(groundCheck.position, 0.2f, groundMask)) isGrounded = true;
-        else isGrounded = false;
+        
 
         //jump
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && pm.isGrounded())
         {
             rb.AddForce(orientation.up * jumpForce, ForceMode.Impulse);
             animator.SetBool("isJump", true);
@@ -68,16 +66,22 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("isMove", false);
         }
+
+        
     }
 
     private void FixedUpdate()
     {
         //move
-        if (isGrounded)
+        if (pm.isGrounded())
             MoveOnSlope();
         else
             rb.AddForce(moveDirection.normalized * playerSpeed * (airDrag / (groundDrag * 1.6f)), ForceMode.Acceleration);
     }
+
+   
+
+    
 
     public void stopAnimationCoroutine(float animationTime, string name)
     {
@@ -105,7 +109,7 @@ public class PlayerController : MonoBehaviour
 
     private void ControlDrag()
     {
-        if (isGrounded)
+        if (pm.isGrounded())
             rb.drag = groundDrag;
         else
             rb.drag = airDrag;

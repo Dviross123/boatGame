@@ -23,6 +23,7 @@ public class PlayerInteract : MonoBehaviour
             {
                 if (hitCollider.CompareTag("Boat"))
                 {
+                    print("enter boat");
                     hitCollider.GetComponent<BoatManager>().EnterBoat();
                 }
             }

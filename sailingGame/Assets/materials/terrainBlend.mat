@@ -52,7 +52,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal_map:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 7b2d2ad044241914e9443ccc917d0b3e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _blendTexture:
@@ -136,7 +136,7 @@ Material:
     - _noise_scale: 3.15
     - _noise_strength: 1.3
     - _normalStrength: 0
-    - _smoothness: 0
+    - _smoothness: 0.308
     - _terrainHeight: 600
     m_Colors:
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
